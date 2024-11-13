@@ -13,6 +13,7 @@ SRCFILES	=	ft_ssl.c		\
 				gen_priv_key.c	\
 				encoding.c		\
 				encrypt.c		\
+				encrypt_util.c	\
 				byte_array.c	\
 				base64.c		\
 				error.c			\

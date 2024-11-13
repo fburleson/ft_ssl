@@ -84,6 +84,8 @@ encrypted_byte_array_t encrypt_bytes(const byte_array_t *const bytes, const rsa_
 byte_array_t           decrypt_bytes(const encrypted_byte_array_t *const bytes, const rsa_exp_t priv_exp, const uint64_t mod);
 byte_array_t           format_encrypted_bytes(const encrypted_byte_array_t *const bytes);
 encrypted_byte_array_t format_bytes(const byte_array_t *const bytes);
+off_t                  file_len(const int fd);
+encrypted_byte_array_t read_encrypted_file(const int fd);
 
 //  bytes array
 

@@ -1,5 +1,7 @@
 #include "ft_ssl.h"
+#include <fcntl.h>
 #include <stdio.h>
+#include <unistd.h>
 
 // int main(void)
 // {
@@ -18,36 +20,36 @@
 //     printf("decrypted:  %u\n", decrypted);
 // }
 
-int main(void)
-{
-    priv_key_t             priv_key;
-    uint64_t               mod;
-    int                    fd;
-    byte_array_t           bytes;
-    encrypted_byte_array_t encrypted;
-    byte_array_t           formatted;
-    encrypted_byte_array_t rev_format;
-    byte_array_t           decrypted;
-
-    priv_key   = gen_priv_key(DEFAULT_PUB_EXP);
-    mod        = priv_key.q * priv_key.p;
-    fd         = open(".gitignore", O_RDONLY);
-    bytes      = encode(fd);
-    encrypted  = encrypt_bytes(&bytes, priv_key.pub_exp, mod);
-    formatted  = format_encrypted_bytes(&encrypted);
-    rev_format = format_bytes(&formatted);
-    decrypted  = decrypt_bytes(&rev_format, priv_key.priv_exp, mod);
-    for (size_t i = 0; i < bytes.size; i++)
-        printf("%c", bytes.data[i]);
-    printf("\n----- ENCRYPTED -----\n");
-    for (size_t i = 0; i < formatted.size; i++)
-        printf("%c", formatted.data[i]);
-    printf("\n----- DECRYPTED -----\n");
-    for (size_t i = 0; i < decrypted.size; i++)
-        printf("%c", decrypted.data[i]);
-    printf("\n----- PRIVATE KEY -----\n");
-    printf("%lu\n", priv_key.priv_exp);
-}
+// int main(void)
+// {
+//     priv_key_t             priv_key;
+//     uint64_t               mod;
+//     int                    fd;
+//     byte_array_t           bytes;
+//     encrypted_byte_array_t encrypted;
+//     byte_array_t           formatted;
+//     encrypted_byte_array_t rev_format;
+//     byte_array_t           decrypted;
+//
+//     priv_key   = gen_priv_key(DEFAULT_PUB_EXP);
+//     mod        = priv_key.q * priv_key.p;
+//     fd         = open(".gitignore", O_RDONLY);
+//     bytes      = encode(fd);
+//     encrypted  = encrypt_bytes(&bytes, priv_key.pub_exp, mod);
+//     formatted  = format_encrypted_bytes(&encrypted);
+//     rev_format = format_bytes(&formatted);
+//     decrypted  = decrypt_bytes(&rev_format, priv_key.priv_exp, mod);
+//     for (size_t i = 0; i < bytes.size; i++)
+//         printf("%c", bytes.data[i]);
+//     printf("\n----- ENCRYPTED -----\n");
+//     for (size_t i = 0; i < formatted.size; i++)
+//         printf("%c", formatted.data[i]);
+//     printf("\n----- DECRYPTED -----\n");
+//     for (size_t i = 0; i < decrypted.size; i++)
+//         printf("%c", decrypted.data[i]);
+//     printf("\n----- PRIVATE KEY -----\n");
+//     printf("%lu\n", priv_key.priv_exp);
+// }
 
 // int main(void)
 // {
@@ -60,6 +62,30 @@ int main(void)
 //     printf("%lu\n", base10);
 // }
 
-// int main(void)
-// {
-// }
+int main(void)
+{
+    priv_key_t             priv_key;
+    uint64_t               mod;
+    int                    fd;
+    int                    encrypted_fd;
+    byte_array_t           bytes;
+    encrypted_byte_array_t inter_encrypted;
+    byte_array_t           encrypted;
+    encrypted_byte_array_t read_encrypted;
+    byte_array_t           decrypted;
+
+    priv_key        = gen_priv_key(DEFAULT_PUB_EXP);
+    mod             = priv_key.p * priv_key.q;
+    fd              = open(".gitignore", O_RDONLY);
+    encrypted_fd    = open("encrypted", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    bytes           = encode(fd);
+    inter_encrypted = encrypt_bytes(&bytes, priv_key.pub_exp, mod);
+    encrypted       = format_encrypted_bytes(&inter_encrypted);
+    write(encrypted_fd, encrypted.data, encrypted.size);
+    close(encrypted_fd);
+    encrypted_fd   = open("encrypted", O_RDONLY);
+    read_encrypted = read_encrypted_file(encrypted_fd);
+    decrypted      = decrypt_bytes(&read_encrypted, priv_key.priv_exp, mod);
+    for (size_t i = 0; i < decrypted.size; i++)
+        printf("%c", decrypted.data[i]);
+}

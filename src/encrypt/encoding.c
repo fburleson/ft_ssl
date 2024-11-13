@@ -1,14 +1,5 @@
 #include "ft_ssl.h"
 
-static off_t file_len(const int fd)
-{
-    fstat_t file_stat;
-
-    if (fstat(fd, &file_stat) == -1)
-        return -1;
-    return file_stat.st_size;
-}
-
 byte_array_t encode(const int fd)
 {
     off_t        size;
