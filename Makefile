@@ -11,7 +11,9 @@ SRCFILES	=	ft_ssl.c		\
 				gen_prime.c		\
 				gen_priv_exp.c	\
 				gen_priv_key.c	\
+				encoding.c		\
 				encrypt.c		\
+				byte_array.c	\
 				error.c			\
 				math.c			\
 				string.c		\

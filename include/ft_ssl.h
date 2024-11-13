@@ -47,6 +47,18 @@ typedef struct pub_key_s
         rsa_exp_t pub_exp;
 } pub_key_t;
 
+typedef struct byte_array_s
+{
+        byte_t *data;
+        size_t  size;
+} byte_array_t;
+
+typedef struct encrypted_byte_array_s
+{
+        uint64_t *data;
+        size_t    size;
+} encrypted_byte_array_t;
+
 enum Status
 {
     OK,
@@ -57,34 +69,44 @@ enum Status
 
 //  rsa key gen
 
-uint64_t   gen_prime(void);
-rsa_exp_t  gen_priv_exp(const uint64_t pub_key, const uint64_t totient);
-priv_key_t gen_priv_key(const rsa_exp_t pub_key);
+uint64_t               gen_prime(void);
+rsa_exp_t              gen_priv_exp(const uint64_t pub_key, const uint64_t totient);
+priv_key_t             gen_priv_key(const rsa_exp_t pub_key);
 
 //  encryption and decryption
 
-uint64_t   encrypt_byte(const byte_t byte, const rsa_exp_t pub_exp, uint64_t mod);
-byte_t     decrypt_byte(const uint64_t encrypted, const rsa_exp_t priv_exp, uint64_t mod);
+byte_array_t           encode(const int fd);
+uint64_t               encrypt_byte(const byte_t byte, const rsa_exp_t pub_exp, uint64_t mod);
+byte_t                 decrypt_byte(const uint64_t encrypted, const rsa_exp_t priv_exp, uint64_t mod);
+encrypted_byte_array_t encrypt_bytes(const byte_array_t *const bytes, const rsa_exp_t pub_exp, const uint64_t mod);
+byte_array_t           decrypt_bytes(const encrypted_byte_array_t *const bytes, const rsa_exp_t priv_exp, const uint64_t mod);
+
+//  bytes array
+
+byte_array_t           init_byte_array(const size_t size);
+encrypted_byte_array_t init_encrypted_array(const size_t size);
+void                   free_byte_array(byte_array_t *const array);
+void                   free_encrypted_array(encrypted_byte_array_t *const array);
 
 //  math
 
-uint64_t   totient(const uint64_t p, const uint64_t q);
+uint64_t               totient(const uint64_t p, const uint64_t q);
 
 //  string
 
-size_t     ft_strlen(const char *s);
-bool       ft_strequals(const char *s0, const char *s1);
-char      *ft_strdup(const char *s);
+size_t                 ft_strlen(const char *s);
+bool                   ft_strequals(const char *s0, const char *s1);
+char                  *ft_strdup(const char *s);
 
 //  random
 
-int        get_random_dev(void);
-uint64_t   read_random_bytes(const int random_dev);
-uint64_t   rand_ui64(const int random_dev);
-uint64_t   rand_range_ui64(const int random_dev, const uint64_t min, const uint64_t max);
+int                    get_random_dev(void);
+uint64_t               read_random_bytes(const int random_dev);
+uint64_t               rand_ui64(const int random_dev);
+uint64_t               rand_range_ui64(const int random_dev, const uint64_t min, const uint64_t max);
 
 //  error
 
-void       error_msg(const char *msg);
-void       warning_msg(const char *msg);
+void                   error_msg(const char *msg);
+void                   warning_msg(const char *msg);
 #endif
