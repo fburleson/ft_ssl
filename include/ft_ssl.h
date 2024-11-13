@@ -28,7 +28,8 @@
 #define CMD_RSA_UTL           "rsautl"
 
 typedef uint64_t    rsa_exp_t;
-typedef uint8_t     byte_t;
+typedef char        byte_t;
+typedef uint64_t    encrypted_byte_t;
 typedef char        base64_digit_t;
 typedef char       *base64_t;
 typedef struct stat fstat_t;
@@ -56,8 +57,8 @@ typedef struct byte_array_s
 
 typedef struct encrypted_byte_array_s
 {
-        uint64_t *data;
-        size_t    size;
+        encrypted_byte_t *data;
+        size_t            size;
 } encrypted_byte_array_t;
 
 typedef enum Status
@@ -81,6 +82,8 @@ uint64_t               encrypt_byte(const byte_t byte, const rsa_exp_t pub_exp, 
 byte_t                 decrypt_byte(const uint64_t encrypted, const rsa_exp_t priv_exp, uint64_t mod);
 encrypted_byte_array_t encrypt_bytes(const byte_array_t *const bytes, const rsa_exp_t pub_exp, const uint64_t mod);
 byte_array_t           decrypt_bytes(const encrypted_byte_array_t *const bytes, const rsa_exp_t priv_exp, const uint64_t mod);
+byte_array_t           format_encrypted_bytes(const encrypted_byte_array_t *const bytes);
+encrypted_byte_array_t format_bytes(const byte_array_t *const bytes);
 
 //  bytes array
 

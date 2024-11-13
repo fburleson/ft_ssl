@@ -56,3 +56,23 @@ byte_array_t decrypt_bytes(const encrypted_byte_array_t *const bytes, const rsa_
         decrypted.data[i] = decrypt_byte(bytes->data[i], priv_exp, mod);
     return decrypted;
 }
+
+byte_array_t format_encrypted_bytes(const encrypted_byte_array_t *const bytes)
+{
+    byte_array_t formatted;
+
+    formatted = init_byte_array(bytes->size * (sizeof(encrypted_byte_t) / sizeof(byte_t)));
+    for (size_t i = 0; i < formatted.size; i++)
+        formatted.data[i] = ((byte_t *)bytes->data)[i];
+    return formatted;
+}
+
+encrypted_byte_array_t format_bytes(const byte_array_t *const bytes)
+{
+    encrypted_byte_array_t formatted;
+
+    formatted = init_encrypted_array(bytes->size / (sizeof(encrypted_byte_t) / sizeof(byte_t)));
+    for (size_t i = 0; i < formatted.size; i++)
+        formatted.data[i] = ((encrypted_byte_t *)bytes->data)[i];
+    return formatted;
+}

@@ -19,7 +19,7 @@ encrypted_byte_array_t init_encrypted_array(const size_t size)
     encrypted_byte_array_t bytes;
 
     bytes.size = size;
-    bytes.data = malloc(size * sizeof(uint64_t));
+    bytes.data = malloc(size * sizeof(encrypted_byte_t));
     if (!bytes.data)
     {
         bytes.data = NULL;
