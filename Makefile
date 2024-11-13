@@ -14,6 +14,7 @@ SRCFILES	=	ft_ssl.c		\
 				encoding.c		\
 				encrypt.c		\
 				byte_array.c	\
+				base64.c		\
 				error.c			\
 				math.c			\
 				string.c		\

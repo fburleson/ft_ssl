@@ -27,9 +27,10 @@
 #define CMD_GEN_RSA           "genrsa"
 #define CMD_RSA_UTL           "rsautl"
 
-typedef int         status_t;
 typedef uint64_t    rsa_exp_t;
 typedef uint8_t     byte_t;
+typedef char        base64_digit_t;
+typedef char       *base64_t;
 typedef struct stat fstat_t;
 
 typedef struct priv_key_s
@@ -59,13 +60,13 @@ typedef struct encrypted_byte_array_s
         size_t    size;
 } encrypted_byte_array_t;
 
-enum Status
+typedef enum Status
 {
     OK,
     NO_ARGS,
     INV_ARG,
     UKNOWN
-};
+} status_t;
 
 //  rsa key gen
 
@@ -91,6 +92,11 @@ void                   free_encrypted_array(encrypted_byte_array_t *const array)
 //  math
 
 uint64_t               totient(const uint64_t p, const uint64_t q);
+
+//  base64
+
+base64_t               dec_to_base64(const uint64_t a);
+uint64_t               base64_to_dec(const base64_t base64);
 
 //  string
 
