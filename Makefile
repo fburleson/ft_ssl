@@ -4,10 +4,12 @@ SRCDIR		=	./src/
 UTLDIR		=	$(SRCDIR)util/
 RSADIR		=	$(SRCDIR)rsa/
 CRYPTDIR	=	$(SRCDIR)encrypt/
+PROCDIR		=	$(SRCDIR)process/
 BINDIR		=	./bin/
 INCLUDEDIR	=	./include/
 
 SRCFILES	=	ft_ssl.c		\
+				cmd.c			\
 				gen_prime.c		\
 				gen_priv_exp.c	\
 				gen_priv_key.c	\
@@ -53,6 +55,11 @@ $(BINDIR)%.o:	$(RSADIR)%.c
 			@echo "compiling $<"
 
 $(BINDIR)%.o:	$(CRYPTDIR)%.c
+			@mkdir -p $(BINDIR)
+			@$(CC) $(CFLAGS) -I $(INCLUDEDIR) -c $< -o $@
+			@echo "compiling $<"
+
+$(BINDIR)%.o:	$(PROCDIR)%.c
 			@mkdir -p $(BINDIR)
 			@$(CC) $(CFLAGS) -I $(INCLUDEDIR) -c $< -o $@
 			@echo "compiling $<"

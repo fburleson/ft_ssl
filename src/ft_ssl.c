@@ -1,6 +1,20 @@
 #include "ft_ssl.h"
 #include <stdio.h>
 
+int main(const int argc, const char **argv)
+{
+    cmd_t cmd;
+
+    if (argc == 1)
+    {
+        error_msg(ERR_MSG_NO_ARGS);
+        return NO_ARGS;
+    }
+    cmd = init_cmd(argc, argv);
+    free_cmd(&cmd);
+    return OK;
+}
+
 // int main(void)
 // {
 //     byte_t     m;
@@ -50,7 +64,7 @@
 //     base64_t base64;
 //     uint64_t base10;
 //
-//     base64 = dec_to_base64(1234567);
+//     base64 = dec_to_base64(12);
 //     base10 = base64_to_dec(base64);
 //     printf("%s\n", base64);
 //     printf("%lu\n", base10);
