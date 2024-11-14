@@ -8,20 +8,22 @@ PROCDIR		=	$(SRCDIR)process/
 BINDIR		=	./bin/
 INCLUDEDIR	=	./include/
 
-SRCFILES	=	ft_ssl.c		\
-				cmd.c			\
-				gen_prime.c		\
-				gen_priv_exp.c	\
-				gen_priv_key.c	\
-				encoding.c		\
-				encrypt.c		\
-				encrypt_util.c	\
-				byte_array.c	\
-				base64.c		\
-				error.c			\
-				math.c			\
-				string.c		\
-				random.c		\
+SRCFILES	=	ft_ssl.c			\
+				cmd.c				\
+				process_util.c		\
+				process_genrsa.c	\
+				gen_prime.c			\
+				gen_priv_exp.c		\
+				gen_priv_key.c		\
+				encoding.c			\
+				encrypt.c			\
+				encrypt_util.c		\
+				byte_array.c		\
+				base64.c			\
+				error.c				\
+				math.c				\
+				string.c			\
+				random.c			\
 
 BINFILES	=	$(notdir $(SRCFILES:.c=.o))
 

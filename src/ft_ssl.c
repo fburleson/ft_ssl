@@ -1,18 +1,26 @@
 #include "ft_ssl.h"
-#include <stdio.h>
 
 int main(const int argc, const char **argv)
 {
-    cmd_t cmd;
+    cmd_t    cmd;
+    status_t status;
 
     if (argc == 1)
     {
         error_msg(ERR_MSG_NO_ARGS);
         return NO_ARGS;
     }
-    cmd = init_cmd(argc, argv);
+    status = OK;
+    cmd    = init_cmd(argc, argv);
+    if (ft_strequals(cmd.name, CMD_GEN_RSA))
+        status = process_genrsa(&cmd);
+    else
+    {
+        error_msg(ERR_MSG_INV_ARG);
+        status = INV_ARG;
+    }
     free_cmd(&cmd);
-    return OK;
+    return status;
 }
 
 // int main(void)

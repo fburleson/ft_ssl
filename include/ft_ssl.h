@@ -15,6 +15,9 @@
 #define MIN_PRIME             10000
 #define MAX_PRIME             65537
 
+#define KEY_BEGIN             "-----BEGIN RSA PRIVATE KEY-----\n"
+#define KEY_END               "-----END RSA PRIVATE KEY-----\n"
+
 #define BASE64_N_DIGITS       11
 
 #define WRN_MSG_PREFIX        "warning: "
@@ -64,11 +67,18 @@ typedef struct option_s
         uint8_t n_args;
 } option_t;
 
+typedef struct inout_s
+{
+        int in;
+        int out;
+} inout_t;
+
 typedef struct cmd_s
 {
         char      *name;
         option_t **options;
         uint8_t    n_options;
+        inout_t    inout;
 } cmd_t;
 
 typedef enum Status
@@ -83,6 +93,10 @@ typedef enum Status
 
 cmd_t            init_cmd(const uint32_t argc, const char **argv);
 void             free_cmd(const cmd_t *const cmd);
+void             option_wrn_msg(const option_t *const option, const char *msg);
+inout_t          init_inout(const cmd_t *const cmd);
+int              process_file_opt(const option_t *const option, const int flags, const int fallback);
+status_t         process_genrsa(const cmd_t *const cmd);
 
 //  rsa key gen
 

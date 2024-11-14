@@ -28,7 +28,7 @@ static uint64_t base64_to_digit(const base64_digit_t c)
 
 base64_t dec_to_base64(const uint64_t a)
 {
-    char base64[12];
+    char base64[BASE64_N_DIGITS + 1];
 
     for (size_t i = 0; i < 10; i++)
         base64[i] = digit_to_base64((a >> (64 - (i + 1) * 6)) & 0b111111);

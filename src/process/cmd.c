@@ -87,17 +87,21 @@ cmd_t init_cmd(const uint32_t argc, const char **argv)
         }
         cidx++;
     }
+    cmd.inout = init_inout(&cmd);
     return cmd;
+}
+
+static void free_option(const option_t *const option)
+{
+    free(option->name);
+    for (size_t i = 0; i < option->n_args; i++)
+        free(option->args[i]);
 }
 
 void free_cmd(const cmd_t *const cmd)
 {
     free(cmd->name);
     for (size_t i = 0; i < cmd->n_options; i++)
-    {
-        free(cmd->options[i]->name);
-        for (size_t j = 0; j < cmd->options[0]->n_args; j++)
-            free(cmd->options[i]->args[j]);
-    }
+        free_option(cmd->options[i]);
     free(cmd->options);
 }
