@@ -78,14 +78,12 @@ priv_key_t             gen_priv_key(const rsa_exp_t pub_key);
 //  encryption and decryption
 
 byte_array_t           encode(const int fd);
-uint64_t               encrypt_byte(const byte_t byte, const rsa_exp_t pub_exp, uint64_t mod);
-byte_t                 decrypt_byte(const uint64_t encrypted, const rsa_exp_t priv_exp, uint64_t mod);
-encrypted_byte_array_t encrypt_bytes(const byte_array_t *const bytes, const rsa_exp_t pub_exp, const uint64_t mod);
-byte_array_t           decrypt_bytes(const encrypted_byte_array_t *const bytes, const rsa_exp_t priv_exp, const uint64_t mod);
-byte_array_t           format_encrypted_bytes(const encrypted_byte_array_t *const bytes);
-encrypted_byte_array_t format_bytes(const byte_array_t *const bytes);
+encrypted_byte_t       encrypt_byte(const byte_t byte, const rsa_exp_t pub_exp, uint64_t mod);
+byte_t                 decrypt_byte(const encrypted_byte_t encrypted, const rsa_exp_t priv_exp, uint64_t mod);
+byte_array_t           encrypt_bytes(const byte_array_t *const bytes, const rsa_exp_t pub_exp, const uint64_t mod);
+byte_array_t           decrypt_bytes(const byte_array_t *const bytes, const rsa_exp_t priv_exp, const uint64_t mod);
 off_t                  file_len(const int fd);
-encrypted_byte_array_t read_encrypted_file(const int fd);
+byte_array_t           read_encrypted_file(const int fd);
 
 //  bytes array
 
