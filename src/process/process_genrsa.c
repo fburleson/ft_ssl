@@ -14,13 +14,13 @@ status_t process_genrsa(const cmd_t *const cmd)
     priv_key_t priv_key;
 
     priv_key = gen_priv_key(DEFAULT_PUB_EXP);
-    write(cmd->inout.out, KEY_BEGIN, ft_strlen(KEY_BEGIN));
+    write(cmd->inout.out, PRIV_KEY_BEGIN, ft_strlen(PRIV_KEY_BEGIN));
     print_base64(priv_key.p, cmd->inout.out);
     print_base64(priv_key.q, cmd->inout.out);
     print_base64(priv_key.p * priv_key.q, cmd->inout.out); // mod
     print_base64(priv_key.pub_exp, cmd->inout.out);
     print_base64(priv_key.priv_exp, cmd->inout.out);
     write(cmd->inout.out, "\n", 1);
-    write(cmd->inout.out, KEY_END, ft_strlen(KEY_END));
+    write(cmd->inout.out, PRIV_KEY_END, ft_strlen(PRIV_KEY_END));
     return OK;
 }

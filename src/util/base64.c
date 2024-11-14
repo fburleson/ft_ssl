@@ -28,12 +28,12 @@ static uint64_t base64_to_digit(const base64_digit_t c)
 
 base64_t dec_to_base64(const uint64_t a)
 {
-    char base64[BASE64_N_DIGITS + 1];
+    base64_digit_t base64[BASE64_N_DIGITS + 1];
 
-    for (size_t i = 0; i < 10; i++)
+    for (size_t i = 0; i < BASE64_N_DIGITS - 1; i++)
         base64[i] = digit_to_base64((a >> (64 - (i + 1) * 6)) & 0b111111);
-    base64[10] = digit_to_base64((a & 0b1111) << 2);
-    base64[11] = '\0';
+    base64[BASE64_N_DIGITS - 1] = digit_to_base64((a & 0b1111) << 2);
+    base64[BASE64_N_DIGITS]     = '\0';
     return ft_strdup(base64);
 }
 

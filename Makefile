@@ -12,6 +12,7 @@ SRCFILES	=	ft_ssl.c			\
 				cmd.c				\
 				process_util.c		\
 				process_genrsa.c	\
+				process_rsa.c		\
 				gen_prime.c			\
 				gen_priv_exp.c		\
 				gen_priv_key.c		\
@@ -20,8 +21,11 @@ SRCFILES	=	ft_ssl.c			\
 				encrypt_util.c		\
 				byte_array.c		\
 				base64.c			\
+				base16.c			\
 				error.c				\
+				file.c				\
 				math.c				\
+				print.c				\
 				string.c			\
 				random.c			\
 
