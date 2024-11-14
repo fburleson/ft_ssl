@@ -19,9 +19,9 @@ static void xgcd(const uint64_t a, const uint64_t b, uint64_t *const x, uint64_t
 
 rsa_exp_t gen_priv_exp(const uint64_t pub_key, const uint64_t totient)
 {
-    uint64_t priv_key;
-    uint64_t _;
+    rsa_exp_t priv_exp;
+    uint64_t  _;
 
-    xgcd(pub_key, totient, &priv_key, &_);
-    return priv_key;
+    xgcd(pub_key, totient, &priv_exp, &_);
+    return priv_exp;
 }

@@ -54,30 +54,31 @@
 //     base10 = base64_to_dec(base64);
 //     printf("%s\n", base64);
 //     printf("%lu\n", base10);
+//     free(base64);
 // }
 
-int main(void)
-{
-    priv_key_t   priv_key;
-    uint64_t     mod;
-    int          fd;
-    int          encrypted_fd;
-    byte_array_t bytes;
-    byte_array_t encrypted;
-    byte_array_t read_encrypted;
-    byte_array_t decrypted;
-
-    priv_key     = gen_priv_key(DEFAULT_PUB_EXP);
-    mod          = priv_key.p * priv_key.q;
-    fd           = open(".gitignore", O_RDONLY);
-    encrypted_fd = open("encrypted", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    bytes        = encode(fd);
-    encrypted    = encrypt_bytes(&bytes, priv_key.pub_exp, mod);
-    write(encrypted_fd, encrypted.data, encrypted.size);
-    close(encrypted_fd);
-    encrypted_fd   = open("encrypted", O_RDONLY);
-    read_encrypted = read_encrypted_file(encrypted_fd);
-    decrypted      = decrypt_bytes(&read_encrypted, priv_key.priv_exp, mod);
-    for (size_t i = 0; i < decrypted.size; i++)
-        printf("%c", decrypted.data[i]);
-}
+// int main(void)
+// {
+//     priv_key_t   priv_key;
+//     uint64_t     mod;
+//     int          fd;
+//     int          encrypted_fd;
+//     byte_array_t bytes;
+//     byte_array_t encrypted;
+//     byte_array_t read_encrypted;
+//     byte_array_t decrypted;
+//
+//     priv_key     = gen_priv_key(DEFAULT_PUB_EXP);
+//     mod          = priv_key.p * priv_key.q;
+//     fd           = open(".gitignore", O_RDONLY);
+//     encrypted_fd = open("encrypted", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+//     bytes        = encode(fd);
+//     encrypted    = encrypt_bytes(&bytes, priv_key.pub_exp, mod);
+//     write(encrypted_fd, encrypted.data, encrypted.size);
+//     close(encrypted_fd);
+//     encrypted_fd   = open("encrypted", O_RDONLY);
+//     read_encrypted = read_encrypted_file(encrypted_fd);
+//     decrypted      = decrypt_bytes(&read_encrypted, priv_key.priv_exp, mod);
+//     for (size_t i = 0; i < decrypted.size; i++)
+//         printf("%c", decrypted.data[i]);
+// }
