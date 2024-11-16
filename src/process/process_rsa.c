@@ -103,6 +103,10 @@ status_t process_rsa(const cmd_t *const cmd)
 
     opts         = init_opts(cmd);
     file_content = read_file(cmd->inout.in);
+    if (opts.inform && !ft_strequals(opts.inform, "PEM"))
+        warning_msg("unknown input format assuming PEM");
+    if (opts.outform && !ft_strequals(opts.outform, "PEM"))
+        warning_msg("unknown output format assuming PEM");
     if (opts.pubin)
         opts.pubout = true;
     if (!opts.pubin)
