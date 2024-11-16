@@ -1,4 +1,5 @@
 #include "ft_ssl.h"
+#include <unistd.h>
 
 inout_t init_inout(const cmd_t *const cmd)
 {
@@ -39,8 +40,8 @@ int process_file_opt(const option_t *const option, const int flags, const int fa
 
 void option_wrn_msg(const option_t *const option, const char *msg)
 {
-    write(STDERR_FILENO, "opt: ", 5);
-    write(STDERR_FILENO, option->name, ft_strlen(option->name));
-    write(STDERR_FILENO, ": ", 2);
+    print_str_fd("opt: ", STDERR_FILENO);
+    print_str_fd(option->name, STDERR_FILENO);
+    print_str_fd(": ", STDERR_FILENO);
     warning_msg(msg);
 }
