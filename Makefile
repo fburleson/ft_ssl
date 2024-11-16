@@ -13,6 +13,7 @@ SRCFILES	=	ft_ssl.c			\
 				process_util.c		\
 				process_genrsa.c	\
 				process_rsa.c		\
+				key_util.c			\
 				gen_prime.c			\
 				gen_priv_exp.c		\
 				gen_priv_key.c		\

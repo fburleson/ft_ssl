@@ -62,6 +62,12 @@ typedef struct pub_key_s
         rsa_exp_t pub_exp;
 } pub_key_t;
 
+typedef union hyrid_key_t
+{
+        priv_key_t priv_key;
+        pub_key_t  pub_key;
+} hybrid_key_t;
+
 typedef struct byte_array_s
 {
         byte_t *data;
@@ -106,6 +112,13 @@ inout_t          init_inout(const cmd_t *const cmd);
 int              process_file_opt(const option_t *const option, const int flags, const int fallback);
 status_t         process_genrsa(const cmd_t *const cmd);
 status_t         process_rsa(const cmd_t *const cmd);
+
+//  key util
+
+priv_key_t       parse_priv_key(const char *content);
+pub_key_t        parse_pub_key(const char *content);
+void             print_priv_key(const priv_key_t *const priv_key, const int fd);
+void             print_pub_key(const pub_key_t *const pub_key, const int fd);
 
 //  rsa key gen
 
