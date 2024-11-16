@@ -40,5 +40,31 @@ char *ft_strdup(const char *s)
         copy[cidx] = s[cidx];
         cidx++;
     }
+    copy[cidx] = '\0';
     return copy;
+}
+
+char *ft_strcat(const char *s0, const char *s1)
+{
+    size_t size;
+    size_t cidx;
+    char  *cat;
+
+    cidx = 0;
+    size = ft_strlen(s0) + ft_strlen(s1);
+    cat  = malloc((size + 1) * sizeof(char));
+    if (!cat)
+        return NULL;
+    for (size_t j = 0; j < ft_strlen(s0); j++)
+    {
+        cat[cidx] = s0[j];
+        cidx++;
+    }
+    for (size_t j = 0; j < ft_strlen(s1); j++)
+    {
+        cat[cidx] = s1[j];
+        cidx++;
+    }
+    cat[size] = '\0';
+    return cat;
 }

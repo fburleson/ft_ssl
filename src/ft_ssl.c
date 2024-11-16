@@ -1,6 +1,31 @@
 #include "ft_ssl.h"
 #include <stdio.h>
 
+int main(const int argc, const char **argv)
+{
+    cmd_t    cmd;
+    status_t status;
+
+    if (argc == 1)
+    {
+        error_msg(ERR_MSG_NO_ARGS);
+        return NO_ARGS;
+    }
+    status = OK;
+    cmd    = init_cmd(argc, argv);
+    if (ft_strequals(cmd.name, CMD_GEN_RSA))
+        status = process_genrsa(&cmd);
+    else if (ft_strequals(cmd.name, CMD_RSA))
+        status = process_rsa(&cmd);
+    else
+    {
+        error_msg(ERR_MSG_INV_ARG);
+        status = INV_ARG;
+    }
+    free_cmd(&cmd);
+    return status;
+}
+
 // int main(void)
 // {
 //     byte_t     m;
@@ -33,7 +58,8 @@
 //     bytes     = encode(fd);
 //     encrypted = encrypt_bytes(&bytes, priv_key.pub_exp, mod);
 //     decrypted = decrypt_bytes(&encrypted, priv_key.priv_exp, mod);
-//     for (size_t i = 0; i < bytes.size; i++)
+//     for (size_t i = 0; i < bytes.size;
+//     i++)
 //         printf("%c", bytes.data[i]);
 //     printf("\n----- ENCRYPTED -----\n");
 //     for (size_t i = 0; i < encrypted.size; i++)
@@ -50,11 +76,22 @@
 //     base64_t base64;
 //     uint64_t base10;
 //
-//     base64 = dec_to_base64(1234567);
+//     base64 = dec_to_base64(12);
 //     base10 = base64_to_dec(base64);
 //     printf("%s\n", base64);
 //     printf("%lu\n", base10);
 //     free(base64);
+// }
+
+// int main(void)
+// {
+//     base16_t base16;
+//     uint64_t base10;
+//
+//     base16 = dec_to_base16(12);
+//     base10 = base16_to_dec(base16);
+//     printf("%s\n", base16);
+//     printf("%lu\n", base10);
 // }
 
 // int main(void)
