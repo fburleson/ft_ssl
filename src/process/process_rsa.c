@@ -64,11 +64,9 @@ static rsa_opts_t init_opts(const cmd_t *const cmd)
 
 static void print_modulus(const hybrid_key_t *const key)
 {
-    uint64_t modulus;
     base16_t hex;
 
-    modulus = key_mod(key->priv_key.q, key->priv_key.p);
-    hex     = dec_to_base16(modulus);
+    hex = dec_to_base16(key->priv_key.mod);
     print_str_fd("modulus=0x", STDOUT_FILENO);
     print_str_fd(hex, STDOUT_FILENO);
     print_str_fd("\n", STDOUT_FILENO);

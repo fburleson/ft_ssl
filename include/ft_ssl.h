@@ -49,16 +49,16 @@ typedef struct stat fstat_t;
 
 typedef struct priv_key_s
 {
+        uint64_t  mod;
+        rsa_exp_t pub_exp;
         uint64_t  p;
         uint64_t  q;
-        rsa_exp_t pub_exp;
         rsa_exp_t priv_exp;
 } priv_key_t;
 
 typedef struct pub_key_s
 {
-        uint64_t  p;
-        uint64_t  q;
+        uint64_t  mod;
         rsa_exp_t pub_exp;
 } pub_key_t;
 
