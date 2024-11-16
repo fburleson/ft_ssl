@@ -1,5 +1,4 @@
 #include "ft_ssl.h"
-#include <unistd.h>
 
 inout_t init_inout(const cmd_t *const cmd)
 {

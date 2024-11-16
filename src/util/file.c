@@ -23,3 +23,12 @@ char *read_file(const int fd)
     } while (n_bytes);
     return content;
 }
+
+off_t file_len(const int fd)
+{
+    fstat_t file_stat;
+
+    if (fstat(fd, &file_stat) == -1)
+        return -1;
+    return file_stat.st_size;
+}

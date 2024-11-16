@@ -1,5 +1,4 @@
 #include "ft_ssl.h"
-#include <stdio.h>
 
 int main(const int argc, const char **argv)
 {
@@ -17,6 +16,8 @@ int main(const int argc, const char **argv)
         status = process_genrsa(&cmd);
     else if (ft_strequals(cmd.name, CMD_RSA))
         status = process_rsa(&cmd);
+    else if (ft_strequals(cmd.name, CMD_RSA_UTL))
+        status = process_rsautl(&cmd);
     else
     {
         error_msg(ERR_MSG_INV_ARG);
