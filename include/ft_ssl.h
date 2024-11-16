@@ -119,6 +119,8 @@ priv_key_t       parse_priv_key(const char *content);
 pub_key_t        parse_pub_key(const char *content);
 void             print_priv_key(const priv_key_t *const priv_key, const int fd);
 void             print_pub_key(const pub_key_t *const pub_key, const int fd);
+void             print_priv_key_text(const priv_key_t *const priv_key, const int fd);
+void             print_pub_key_text(const pub_key_t *const pub_key, const int fd);
 
 //  rsa key gen
 

@@ -1,4 +1,5 @@
 #include "ft_ssl.h"
+#include <stdio.h>
 
 priv_key_t parse_priv_key(const char *content)
 {
@@ -41,21 +42,31 @@ static void print_base64(const uint64_t a, const int fd)
 
 void print_priv_key(const priv_key_t *const priv_key, const int fd)
 {
-    write(fd, PRIV_KEY_BEGIN, ft_strlen(PRIV_KEY_BEGIN));
+    print_str_fd(PRIV_KEY_BEGIN, fd);
     print_base64(priv_key->mod, fd);
     print_base64(priv_key->pub_exp, fd);
     print_base64(priv_key->p, fd);
     print_base64(priv_key->q, fd);
     print_base64(priv_key->priv_exp, fd);
-    write(fd, "\n", 1);
-    write(fd, PRIV_KEY_END, ft_strlen(PRIV_KEY_END));
+    print_str_fd("\n" PRIV_KEY_BEGIN, fd);
 }
 
 void print_pub_key(const pub_key_t *const pub_key, const int fd)
 {
-    write(fd, PUB_KEY_BEGIN, ft_strlen(PUB_KEY_BEGIN));
+    print_str_fd(PUB_KEY_BEGIN, fd);
     print_base64(pub_key->mod, fd);
     print_base64(pub_key->pub_exp, fd);
-    write(fd, "\n", 1);
-    write(fd, PUB_KEY_END, ft_strlen(PUB_KEY_END));
+    print_str_fd("\n" PUB_KEY_END, fd);
+}
+
+void print_priv_key_text(const priv_key_t *const priv_key, const int fd)
+{
+    print_str_fd("private key: (64 bit, 2 primes)\n", fd);
+    printf("%lu\n", priv_key->mod);
+}
+
+void print_pub_key_text(const pub_key_t *const pub_key, const int fd)
+{
+    print_str_fd("public key: (64 bit)\n", fd);
+    printf("%lu\n", pub_key->mod);
 }

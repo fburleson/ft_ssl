@@ -1,4 +1,5 @@
 #include "ft_ssl.h"
+#include <unistd.h>
 
 typedef struct rsa_opts_s
 {
@@ -62,6 +63,14 @@ static rsa_opts_t init_opts(const cmd_t *const cmd)
     return opts;
 }
 
+static void print_text(const rsa_opts_t *const opts, const hybrid_key_t *const key)
+{
+    if (opts->pubout)
+        print_pub_key_text(&key->pub_key, STDOUT_FILENO);
+    else
+        print_priv_key_text(&key->priv_key, STDOUT_FILENO);
+}
+
 static void print_modulus(const hybrid_key_t *const key)
 {
     base16_t hex;
@@ -95,10 +104,14 @@ status_t process_rsa(const cmd_t *const cmd)
 
     opts         = init_opts(cmd);
     file_content = read_file(cmd->inout.in);
+    if (opts.pubin)
+        opts.pubout = true;
     if (!opts.pubin)
         key.priv_key = parse_priv_key(file_content);
     else
         key.pub_key = parse_pub_key(file_content);
+    if (opts.text)
+        print_text(&opts, &key);
     if (opts.modulus)
         print_modulus(&key);
     if (!opts.noout)
