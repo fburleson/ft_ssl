@@ -111,6 +111,7 @@ void             option_wrn_msg(const option_t *const option, const char *msg);
 inout_t          init_inout(const cmd_t *const cmd);
 int              process_file_opt(const option_t *const option, const int flags, const int fallback);
 status_t         process_genrsa(const cmd_t *const cmd);
+status_t         process_rsautl(const cmd_t *const cmd);
 status_t         process_rsa(const cmd_t *const cmd);
 
 //  key util
@@ -135,7 +136,6 @@ encrypted_byte_t encrypt_byte(const byte_t byte, const rsa_exp_t pub_exp, uint64
 byte_t           decrypt_byte(const encrypted_byte_t encrypted, const rsa_exp_t priv_exp, uint64_t mod);
 byte_array_t     encrypt_bytes(const byte_array_t *const bytes, const rsa_exp_t pub_exp, const uint64_t mod);
 byte_array_t     decrypt_bytes(const byte_array_t *const bytes, const rsa_exp_t priv_exp, const uint64_t mod);
-off_t            file_len(const int fd);
 byte_array_t     read_encrypted_file(const int fd);
 
 //  bytes array
@@ -161,6 +161,7 @@ uint64_t         base16_to_dec(const base16_t base16);
 //  file
 
 char            *read_file(const int fd);
+off_t            file_len(const int fd);
 
 //  print
 

@@ -1,5 +1,4 @@
 #include "ft_ssl.h"
-#include <unistd.h>
 
 void error_msg(const char *msg)
 {
