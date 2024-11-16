@@ -131,6 +131,7 @@ void             free_byte_array(byte_array_t *const array);
 //  math
 
 uint64_t         totient(const uint64_t p, const uint64_t q);
+uint64_t         key_mod(const uint64_t p, const uint64_t q);
 
 //  base64
 

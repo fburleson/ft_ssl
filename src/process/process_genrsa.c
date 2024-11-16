@@ -17,7 +17,7 @@ status_t process_genrsa(const cmd_t *const cmd)
     write(cmd->inout.out, PRIV_KEY_BEGIN, ft_strlen(PRIV_KEY_BEGIN));
     print_base64(priv_key.p, cmd->inout.out);
     print_base64(priv_key.q, cmd->inout.out);
-    print_base64(priv_key.p * priv_key.q, cmd->inout.out); // mod
+    print_base64(key_mod(priv_key.p, priv_key.q), cmd->inout.out);
     print_base64(priv_key.pub_exp, cmd->inout.out);
     print_base64(priv_key.priv_exp, cmd->inout.out);
     write(cmd->inout.out, "\n", 1);
