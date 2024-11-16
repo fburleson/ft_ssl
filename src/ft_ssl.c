@@ -1,4 +1,5 @@
 #include "ft_ssl.h"
+#include <unistd.h>
 
 int main(const int argc, const char **argv)
 {
@@ -23,7 +24,7 @@ int main(const int argc, const char **argv)
         error_msg(ERR_MSG_INV_ARG);
         status = INV_ARG;
     }
-    free_cmd(&cmd);
+    clean_cmd(&cmd);
     return status;
 }
 

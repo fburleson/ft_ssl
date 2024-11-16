@@ -106,7 +106,7 @@ typedef enum Status
 //  process
 
 cmd_t            init_cmd(const uint32_t argc, const char **argv);
-void             free_cmd(const cmd_t *const cmd);
+void             clean_cmd(const cmd_t *const cmd);
 void             option_wrn_msg(const option_t *const option, const char *msg);
 inout_t          init_inout(const cmd_t *const cmd);
 int              process_file_opt(const option_t *const option, const int flags, const int fallback);

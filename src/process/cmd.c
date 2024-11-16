@@ -1,4 +1,5 @@
 #include "ft_ssl.h"
+#include <unistd.h>
 
 static uint8_t n_args(const uint32_t argc, const char **argv, const uint32_t start)
 {
@@ -98,10 +99,14 @@ static void free_option(const option_t *const option)
         free(option->args[i]);
 }
 
-void free_cmd(const cmd_t *const cmd)
+void clean_cmd(const cmd_t *const cmd)
 {
     free(cmd->name);
     for (size_t i = 0; i < cmd->n_options; i++)
         free_option(cmd->options[i]);
     free(cmd->options);
+    if (cmd->inout.in != STDIN_FILENO)
+        close(cmd->inout.in);
+    if (cmd->inout.out != STDOUT_FILENO)
+        close(cmd->inout.out);
 }
