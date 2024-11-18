@@ -26,11 +26,11 @@ priv_key_t parse_priv_key(const char *content)
     cidx += BASE64_N_DIGITS;
     priv_key.pub_exp = base64_to_dec((const base64_t)(content + cidx));
     cidx += BASE64_N_DIGITS;
+    priv_key.priv_exp = base64_to_dec((const base64_t)(content + cidx));
+    cidx += BASE64_N_DIGITS;
     priv_key.q = base64_to_dec((const base64_t)(content + cidx));
     cidx += BASE64_N_DIGITS;
     priv_key.p = base64_to_dec((const base64_t)(content + cidx));
-    cidx += BASE64_N_DIGITS;
-    priv_key.priv_exp = base64_to_dec((const base64_t)(content + cidx));
     return priv_key;
 }
 
@@ -61,9 +61,9 @@ void print_priv_key(const priv_key_t *const priv_key, const int fd)
     print_str_fd(PRIV_KEY_BEGIN, fd);
     print_base64(priv_key->mod, fd);
     print_base64(priv_key->pub_exp, fd);
+    print_base64(priv_key->priv_exp, fd);
     print_base64(priv_key->p, fd);
     print_base64(priv_key->q, fd);
-    print_base64(priv_key->priv_exp, fd);
     print_str_fd("\n" PRIV_KEY_BEGIN, fd);
 }
 
