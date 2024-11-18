@@ -16,6 +16,27 @@ bool ft_strequals(const char *s0, const char *s1)
     return true;
 }
 
+static bool is_delimiter(const char c, const char d)
+{
+    return c == '\0' || c == d;
+}
+
+bool ft_strequals_delimiter(const char *s0, const char *s1, const char d)
+{
+    size_t i;
+
+    i = 0;
+    while (!is_delimiter(s0[i], d) && !is_delimiter(s1[i], d))
+    {
+        if (s0[i] != s1[i])
+            return false;
+        i++;
+    }
+    if (is_delimiter(s0[i], d) && is_delimiter(s1[i], d))
+        return true;
+    return false;
+}
+
 size_t ft_strlen(const char *s)
 {
     size_t len;

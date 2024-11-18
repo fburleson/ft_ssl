@@ -1,4 +1,5 @@
 #include "ft_ssl.h"
+#include <unistd.h>
 
 typedef struct rsa_opts_s
 {
@@ -62,22 +63,22 @@ static rsa_opts_t init_opts(const cmd_t *const cmd)
     return opts;
 }
 
-static void print_text(const rsa_opts_t *const opts, const hybrid_key_t *const key)
+static void print_text(const cmd_t *const cmd, const rsa_opts_t *const opts, const hybrid_key_t *const key)
 {
     if (opts->pubout)
-        print_pub_key_text(&key->pub_key, STDOUT_FILENO);
+        print_pub_key_text(&key->pub_key, cmd->inout.out);
     else
-        print_priv_key_text(&key->priv_key, STDOUT_FILENO);
+        print_priv_key_text(&key->priv_key, cmd->inout.out);
 }
 
-static void print_modulus(const hybrid_key_t *const key)
+static void print_modulus(const cmd_t *const cmd, const hybrid_key_t *const key)
 {
     base16_t hex;
 
     hex = dec_to_base16(key->priv_key.mod);
-    print_str_fd("modulus=0x", STDOUT_FILENO);
-    print_str_fd(hex, STDOUT_FILENO);
-    print_str_fd("\n", STDOUT_FILENO);
+    print_str_fd("modulus=0x", cmd->inout.out);
+    print_str_fd(hex, cmd->inout.out);
+    print_str_fd("\n", cmd->inout.out);
     free(hex);
 }
 
@@ -114,9 +115,9 @@ status_t process_rsa(const cmd_t *const cmd)
     else
         key.pub_key = parse_pub_key(file_content);
     if (opts.text)
-        print_text(&opts, &key);
+        print_text(cmd, &opts, &key);
     if (opts.modulus)
-        print_modulus(&key);
+        print_modulus(cmd, &key);
     if (!opts.noout)
         print_key(cmd, &opts, &key);
     free(file_content);

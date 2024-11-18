@@ -171,6 +171,7 @@ void             print_str_fd(const char *s, const int fd);
 
 size_t           ft_strlen(const char *s);
 bool             ft_strequals(const char *s0, const char *s1);
+bool             ft_strequals_delimiter(const char *s0, const char *s1, const char d);
 char            *ft_strdup(const char *s);
 char            *ft_strcat(const char *s0, const char *s1);
 

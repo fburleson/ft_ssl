@@ -1,5 +1,4 @@
 #include "ft_ssl.h"
-#include <unistd.h>
 
 int main(const int argc, const char **argv)
 {

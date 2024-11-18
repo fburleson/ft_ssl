@@ -1,11 +1,28 @@
 #include "ft_ssl.h"
+#include <stdio.h>
+
+static size_t skip_to_key(const char *content, const char *key_begin)
+{
+    size_t idx;
+
+    idx = 0;
+    while (content[idx] && !ft_strequals_delimiter(content + idx, key_begin, '\n'))
+    {
+        while (content[idx] && content[idx] != '\n')
+            idx++;
+        while (content[idx] == '\n')
+            idx++;
+    }
+    return idx;
+}
 
 priv_key_t parse_priv_key(const char *content)
 {
     priv_key_t priv_key;
     size_t     cidx;
 
-    cidx         = ft_strlen(PRIV_KEY_BEGIN);
+    cidx = skip_to_key(content, PRIV_KEY_BEGIN);
+    cidx += ft_strlen(PRIV_KEY_BEGIN);
     priv_key.mod = base64_to_dec((const base64_t)(content + cidx));
     cidx += BASE64_N_DIGITS;
     priv_key.pub_exp = base64_to_dec((const base64_t)(content + cidx));
@@ -23,7 +40,8 @@ pub_key_t parse_pub_key(const char *content)
     pub_key_t pub_key;
     size_t    cidx;
 
-    cidx        = ft_strlen(PUB_KEY_BEGIN);
+    cidx = skip_to_key(content, PUB_KEY_BEGIN);
+    cidx += ft_strlen(PUB_KEY_BEGIN);
     pub_key.mod = base64_to_dec((const base64_t)(content + cidx));
     cidx += BASE64_N_DIGITS;
     pub_key.pub_exp = base64_to_dec((const base64_t)(content + cidx));
