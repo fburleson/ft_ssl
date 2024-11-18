@@ -7,7 +7,7 @@ static bool is_valid_priv_key(const priv_key_t *const priv_key)
     if (priv_key->p == priv_key->q)
         return false;
     phi_mod = totient(priv_key->q, priv_key->p);
-    return mod_prod(priv_key->q, priv_key->p, phi_mod) == 1;
+    return mod_prod(priv_key->pub_exp, priv_key->priv_exp, phi_mod) == 1;
 }
 
 static priv_key_t try_gen_priv_key(const rsa_exp_t pub_key)
