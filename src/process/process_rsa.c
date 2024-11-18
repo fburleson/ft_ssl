@@ -95,6 +95,27 @@ static void print_key(const cmd_t *const cmd, const rsa_opts_t *const opts, cons
         print_pub_key(&key->pub_key, cmd->inout.out);
 }
 
+static void print_rsa_ok(const cmd_t *const cmd, const priv_key_t *const priv_key)
+{
+    uint64_t phi_mod;
+    bool     ok;
+
+    ok      = true;
+    phi_mod = totient(priv_key->q, priv_key->p);
+    if (!is_prime(priv_key->q, PRIME_NUM_PROBABILITY))
+        ok = false;
+    else if (!is_prime(priv_key->p, PRIME_NUM_PROBABILITY))
+        ok = false;
+    else if (key_mod(priv_key->p, priv_key->q) != priv_key->mod)
+        ok = false;
+    else if (mod_prod(priv_key->priv_exp, priv_key->pub_exp, phi_mod) != 1)
+        ok = false;
+    if (ok)
+        print_str_fd("RSA key ok", cmd->inout.out);
+    else
+        print_str_fd("RSA key not ok", cmd->inout.out);
+}
+
 status_t process_rsa(const cmd_t *const cmd)
 {
     char        *file_content;
@@ -103,6 +124,11 @@ status_t process_rsa(const cmd_t *const cmd)
 
     opts         = init_opts(cmd);
     file_content = read_file(cmd->inout.in);
+    if (opts.check && opts.pubin)
+    {
+        error_msg("options 'check' and 'pubin' are mutaully exclusive.");
+        return INV_ARG;
+    }
     if (opts.inform && !ft_strequals(opts.inform, "PEM"))
         warning_msg("unknown input format assuming PEM");
     if (opts.outform && !ft_strequals(opts.outform, "PEM"))
@@ -117,6 +143,8 @@ status_t process_rsa(const cmd_t *const cmd)
         print_text(cmd, &opts, &key);
     if (opts.modulus)
         print_modulus(cmd, &key);
+    if (opts.check)
+        print_rsa_ok(cmd, &key.priv_key);
     if (!opts.noout)
         print_key(cmd, &opts, &key);
     free(file_content);

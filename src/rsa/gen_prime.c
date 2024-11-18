@@ -56,7 +56,7 @@ static bool miller_rabin(const uint64_t n, const uint64_t witness)
     return true;
 }
 
-static bool is_prime(const uint64_t a, const double p)
+bool is_prime(const uint64_t a, const double p)
 {
     double   err_probability;
     uint64_t witness;

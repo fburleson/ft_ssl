@@ -16,3 +16,8 @@ uint64_t ft_max(const uint64_t a, const uint64_t b)
         return a;
     return b;
 }
+
+uint64_t mod_prod(const uint64_t a, const uint64_t b, const uint64_t mod)
+{
+    return ((a % mod) * (b % mod)) % mod;
+}

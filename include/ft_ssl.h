@@ -147,6 +147,8 @@ void             free_byte_array(byte_array_t *const array);
 
 uint64_t         totient(const uint64_t p, const uint64_t q);
 uint64_t         key_mod(const uint64_t p, const uint64_t q);
+uint64_t         mod_prod(const uint64_t a, const uint64_t b, const uint64_t mod);
+bool             is_prime(const uint64_t a, const double p);
 
 //  base64
 
