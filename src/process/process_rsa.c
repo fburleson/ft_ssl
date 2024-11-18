@@ -1,5 +1,4 @@
 #include "ft_ssl.h"
-#include <unistd.h>
 
 typedef struct rsa_opts_s
 {

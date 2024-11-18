@@ -1,5 +1,4 @@
 #include "ft_ssl.h"
-#include <unistd.h>
 
 static uint8_t n_args(const uint32_t argc, const char **argv, const uint32_t start)
 {

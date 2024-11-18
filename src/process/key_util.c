@@ -1,5 +1,4 @@
 #include "ft_ssl.h"
-#include <stdio.h>
 
 static size_t skip_to_key(const char *content, const char *key_begin)
 {
