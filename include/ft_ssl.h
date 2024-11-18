@@ -12,7 +12,7 @@
 #define DEFAULT_PUB_EXP       65537
 #define MILLER_RABIN_ERR_PROB 0.25f
 #define PRIME_NUM_PROBABILITY 0.75f
-#define MIN_PRIME             10000
+#define MIN_PRIME             32768
 #define MAX_PRIME             65537
 
 #define PRIV_KEY_BEGIN        "-----BEGIN RSA PRIVATE KEY-----\n"
