@@ -64,7 +64,7 @@ void print_priv_key(const priv_key_t *const priv_key, const int fd)
     print_base64(priv_key->priv_exp, fd);
     print_base64(priv_key->p, fd);
     print_base64(priv_key->q, fd);
-    print_str_fd("\n" PRIV_KEY_BEGIN, fd);
+    print_str_fd("\n" PRIV_KEY_END, fd);
 }
 
 void print_pub_key(const pub_key_t *const pub_key, const int fd)
