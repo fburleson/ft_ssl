@@ -12,8 +12,10 @@
 #define DEFAULT_PUB_EXP       65537
 #define MILLER_RABIN_ERR_PROB 0.25f
 #define PRIME_NUM_PROBABILITY 0.75f
-#define MIN_PRIME             32768
-#define MAX_PRIME             65537
+#define MIN_PRIME             2147483648
+#define MAX_PRIME             4294967296
+// #define MIN_PRIME             32768
+// #define MAX_PRIME             65537
 
 #define PRIV_KEY_BEGIN        "-----BEGIN RSA PRIVATE KEY-----\n"
 #define PRIV_KEY_END          "-----END RSA PRIVATE KEY-----\n"
@@ -148,6 +150,7 @@ void             free_byte_array(byte_array_t *const array);
 uint64_t         totient(const uint64_t p, const uint64_t q);
 uint64_t         key_mod(const uint64_t p, const uint64_t q);
 uint64_t         mod_prod(const uint64_t a, const uint64_t b, const uint64_t mod);
+uint64_t         mod_pow(uint64_t a, uint64_t exp, const uint64_t mod);
 bool             is_prime(const uint64_t a, const double p);
 
 //  base64

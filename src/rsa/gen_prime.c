@@ -41,12 +41,12 @@ static bool miller_rabin(const uint64_t n, const uint64_t witness)
     if (n % 2 == 0)
         return true;
     m = solve_exp_factor(n);
-    b = (uint64_t)powl(witness, m) % n;
+    b = mod_pow(witness, m, n);
     if (b == 1 || b == n - 1)
         return false;
     while (m != n - 1)
     {
-        b = b * b % n;
+        b = (b * b) % n;
         m *= 2;
         if (b == 1)
             return true;
@@ -80,9 +80,9 @@ uint64_t gen_prime(void)
     uint64_t n;
 
     random_dev = get_random_dev();
-    n          = rand_range_ui64(random_dev, MIN_PRIME, MAX_PRIME);
+    n          = rand_range_ui64(random_dev, MIN_PRIME, MAX_PRIME) | 1;
     while (!is_prime(n, PRIME_NUM_PROBABILITY))
-        n = rand_range_ui64(random_dev, MIN_PRIME, MAX_PRIME);
+        n = rand_range_ui64(random_dev, MIN_PRIME, MAX_PRIME) | 1;
     close(random_dev);
     return n;
 }

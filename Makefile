@@ -37,7 +37,7 @@ SRCS		=	$(addprefix $(SRCDIR), $(SRCFILES))
 BINS		=	$(addprefix $(BINDIR), $(BINFILES))
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -g
+CFLAGS		=	-Wall -Wextra -Werror
 POSTFLAGS	=	-lm
 RM			=	rm -rf
 

@@ -21,3 +21,18 @@ uint64_t mod_prod(const uint64_t a, const uint64_t b, const uint64_t mod)
 {
     return ((a % mod) * (b % mod)) % mod;
 }
+
+uint64_t mod_pow(uint64_t a, uint64_t exp, const uint64_t mod)
+{
+    uint64_t result;
+
+    result = 1;
+    while (exp > 0)
+    {
+        if (exp & 0b1)
+            result = (result * a) % mod;
+        a   = (a * a) % mod;
+        exp = exp >> 0b1;
+    }
+    return result;
+}

@@ -1,5 +1,4 @@
 #include "ft_ssl.h"
-#include <stdio.h>
 
 byte_array_t encode(const int fd)
 {
