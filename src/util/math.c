@@ -27,6 +27,9 @@ uint64_t mod_pow(uint64_t a, uint64_t exp, const uint64_t mod)
     uint64_t result;
 
     result = 1;
+    a %= mod;
+    if (a == 0)
+        return 0;
     while (exp > 0)
     {
         if (exp & 0b1)
