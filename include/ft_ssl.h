@@ -49,6 +49,12 @@ typedef char       *base64_t;
 typedef char       *base16_t;
 typedef struct stat fstat_t;
 
+typedef struct uint128_s
+{
+        uint64_t low;
+        uint64_t high;
+} uint128_t;
+
 typedef struct priv_key_s
 {
         uint64_t  mod;
@@ -151,7 +157,14 @@ uint64_t         totient(const uint64_t p, const uint64_t q);
 uint64_t         key_mod(const uint64_t p, const uint64_t q);
 uint64_t         mod_prod(const uint64_t a, const uint64_t b, const uint64_t mod);
 uint64_t         mod_pow(uint64_t a, uint64_t exp, const uint64_t mod);
+uint64_t         mod_prod128(const uint64_t a, const uint64_t b, const uint64_t mod);
+uint64_t         mod_pow128(uint64_t a, uint64_t exp, const uint64_t mod);
 bool             is_prime(const uint64_t a, const double p);
+
+//  uint128
+
+uint128_t        prod128(const uint64_t a, const uint64_t b);
+uint64_t         mod128(const uint128_t a, const uint64_t mod);
 
 //  base64
 

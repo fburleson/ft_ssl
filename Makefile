@@ -23,6 +23,7 @@ SRCFILES	=	ft_ssl.c			\
 				encrypt_util.c		\
 				byte_array.c		\
 				base64.c			\
+				uint128.c			\
 				base16.c			\
 				error.c				\
 				file.c				\
