@@ -1,16 +1,5 @@
 #include "ft_ssl.h"
 
-static uint128_t add128_64(const uint128_t a, const uint64_t b)
-{
-    unsigned int carry;
-    uint128_t    sum;
-
-    sum.low  = a.low + b;
-    carry    = sum.low < b;
-    sum.high = a.high + carry;
-    return sum;
-}
-
 static uint128_t sub128_64(const uint128_t a, const uint64_t b)
 {
     bool      borrow;
@@ -29,22 +18,32 @@ uint64_t mod128(const uint128_t a, const uint64_t mod)
     remainder = a;
     while (remainder.high)
         remainder = sub128_64(remainder, mod);
-    remainder.low %= mod;
-    return remainder.low;
+    return remainder.low % mod;
 }
 
 uint128_t prod128(uint64_t a, uint64_t b)
 {
+    uint64_t  u1;
+    uint64_t  v1;
+    uint64_t  t;
+    uint64_t  w3;
+    uint64_t  w1;
+    uint64_t  k;
     uint128_t product;
 
-    product.low  = 0;
-    product.high = 0;
-    while (b > 0)
-    {
-        if (b & 1)
-            product = add128_64(product, a);
-        a <<= 1;
-        b >>= 1;
-    }
+    u1 = a & 0xffffffff;
+    v1 = b & 0xffffffff;
+    t  = u1 * v1;
+    w3 = t & 0xffffffff;
+    k  = t >> 32;
+    a >>= 32;
+    t  = a * v1 + k;
+    k  = t & 0xffffffff;
+    w1 = t >> 32;
+    b >>= 32;
+    t            = u1 * b + k;
+    k            = t >> 32;
+    product.high = a * b + w1 + k;
+    product.low  = (t << 32) + w3;
     return product;
 }
