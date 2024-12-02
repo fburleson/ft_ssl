@@ -2,7 +2,7 @@
 
 encrypted_byte_t encrypt_byte(const byte_t m, const rsa_exp_t pub_exp, const uint64_t mod)
 {
-    uint64_t c;
+    encrypted_byte_t c;
 
     c = mod_pow(m, pub_exp, mod);
     return c;
@@ -12,7 +12,7 @@ byte_t decrypt_byte(const encrypted_byte_t c, const rsa_exp_t priv_exp, const ui
 {
     byte_t m;
 
-    m = mod_pow128(c, priv_exp, mod);
+    m = mod_pow(c, priv_exp, mod);
     return m;
 }
 
