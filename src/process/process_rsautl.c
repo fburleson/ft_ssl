@@ -43,8 +43,8 @@ static rsautl_opts_t init_opts(const cmd_t *const cmd)
 
 static void process_encryption(const pub_key_t *const pub_key, const int in, const int out)
 {
-    byte_array_t content;
-    byte_array_t encrypted;
+    byte_array_t      content;
+    encrypted_array_t encrypted;
 
     content = encode(in);
     if (!content.data)
@@ -56,15 +56,15 @@ static void process_encryption(const pub_key_t *const pub_key, const int in, con
 
 static void process_decryption(const priv_key_t *const priv_key, const int in, const int out)
 {
-    byte_array_t content;
-    byte_array_t decrypted;
+    encrypted_array_t content;
+    byte_array_t      decrypted;
 
     content = read_encrypted_file(in);
     if (!content.data)
         return;
     decrypted = decrypt_bytes(&content, priv_key->priv_exp, priv_key->mod);
     write(out, decrypted.data, decrypted.size);
-    free_byte_array(&content);
+    free_encrypted_array(&content);
 }
 
 status_t process_rsautl(const cmd_t *const cmd)

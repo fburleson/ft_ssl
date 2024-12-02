@@ -17,15 +17,12 @@ uint64_t ft_max(const uint64_t a, const uint64_t b)
     return b;
 }
 
-__uint128_t mod_prod(const uint64_t a, const uint64_t b, const uint64_t mod)
+__uint128_t mod_prod(const __uint128_t a, const __uint128_t b, const __uint128_t mod)
 {
-    __uint128_t product;
-
-    product = (a % mod) * (b % mod);
-    return product % mod;
+    return ((a % mod) * (b % mod)) % mod;
 }
 
-__uint128_t mod_pow(uint64_t a, uint64_t exp, const uint64_t mod)
+__uint128_t mod_pow(__uint128_t a, __uint128_t exp, const __uint128_t mod)
 {
     __uint128_t result;
 
@@ -42,4 +39,3 @@ __uint128_t mod_pow(uint64_t a, uint64_t exp, const uint64_t mod)
     }
     return result;
 }
-
